@@ -1,0 +1,15 @@
+import { Hono } from 'hono';
+import type { Env } from '../types';
+
+const health = new Hono<{ Bindings: Env }>();
+
+health.get('/', async (c) => {
+  return c.json({
+    status: 'ok',
+    service: 'anga-security-api',
+    timestamp: new Date().toISOString(),
+    environment: c.env.ENVIRONMENT,
+  });
+});
+
+export default health;

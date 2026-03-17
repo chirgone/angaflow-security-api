@@ -1,0 +1,40 @@
+name = "angaflow-security-api"
+main = "src/index.ts"
+compatibility_date = "2024-10-22"
+compatibility_flags = ["nodejs_compat"]
+
+account_id = "e3421356cff91cefbf0e954753f49f17"
+workers_dev = true
+
+# Workers AI binding
+[ai]
+binding = "AI"
+
+# Observability (logs for Workflow debugging)
+[observability]
+enabled = true
+
+[vars]
+ENVIRONMENT = "production"
+CORS_ORIGIN = "https://angaflow.com"
+FRONTEND_URL = "https://angaflow.com"
+
+# Simulation Workflow -- each step gets its own 30s CPU budget
+[[workflows]]
+name = "simulation-workflow"
+binding = "SIMULATION_WORKFLOW"
+class_name = "SimulationWorkflow"
+
+# Custom domain
+[[routes]]
+pattern = "api.angaflow.com/*"
+zone_name = "angaflow.com"
+
+# Secrets (set via: wrangler secret put <NAME>)
+# SUPABASE_URL
+# SUPABASE_ANON_KEY
+# SUPABASE_SERVICE_ROLE_KEY
+# MERCADOPAGO_ACCESS_TOKEN
+# MERCADOPAGO_PUBLIC_KEY
+# MERCADOPAGO_WEBHOOK_SECRET
+# INTERNAL_WEBHOOK_SECRET (shared with webhook router)
